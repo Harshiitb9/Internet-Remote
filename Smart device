@@ -1,14 +1,12 @@
 /*
   GCP (Google Cloud Platform) IoT Core WiFi
-  This sketch securely connects to GCP IoT Core using MQTT over WiFi.
+  This sketch securely connects the device to GCP IoT Core using MQTT over WiFi.
   It uses a private key stored in the ATECC508A and a JSON Web Token (JWT) with
   a JSON Web Signature (JWS).
-  It publishes a message every 5 seconds to "/devices/{deviceId}/state" topic
+  It publishes a message to "/devices/{deviceId}/state" topic
   and subscribes to messages on the "/devices/{deviceId}/config" and
-  "/devices/{deviceId}/commands/#" topics.
-  The circuit:
-  - Arduino MKR WiFi 1010 or MKR1000
-  This example code is in the public domain.
+  "/devices/{deviceId}/commands/#" topics. According to the message received it performs a specified action.
+
 */
 
 #include <Arduino.h>
@@ -145,7 +143,7 @@ String calculateJWT() {
   JSONVar jwtClaim;
 
   jwtHeader["alg"] = "ES256";
-  jwtHeader["typ"] = "JWT";
+  jwtHeader["typ"] = "JWT";                                               // This block creates certificate for authentication in the specified format.
 
   jwtClaim["aud"] = projectId;
   jwtClaim["iat"] = now;
@@ -171,7 +169,7 @@ void onMessageReceived(int messageSize) {
   {
     digitalWrite(2,HIGH);
     }
-    elseif(mqttClient.read()=="OFF"||mqttClient.read() =="off")
+    if(Serial.readString()=="OFF"||Serial.readString() =="off")       // This block switches the samrt device on/off.
     {
       digitalWrite(2,LOW);
       }
