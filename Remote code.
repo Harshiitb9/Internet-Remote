@@ -12,9 +12,7 @@
 #include <utility/ECCX08JWS.h>
 #include <ArduinoMqttClient.h>
 #include <Arduino_JSON.h>
-#include <WiFi.h> // change to #include <WiFi101.h> for MKR1000
-
-
+#include <WiFi.h> 
 /////// Enter your sensitive data in arduino_secrets.h
 const char ssid[]        = SECRET_SSID;
 const char pass[]        = SECRET_PASS;
@@ -98,12 +96,12 @@ void connectMQTT() {
     // Calculate the JWT and assign it as the password
     String jwt = calculateJWT();
 
-    mqttClient.setUsernamePassword("", jwt);
+    mqttClient.setUsernamePassword("", jwt);               //passing jwt as argument and setting it as password
 
-    if (!mqttClient.connect(broker, 8883)) {
+    if (!mqttClient.connect(broker, 8883)) {               //8883 is the standard connecting link to the broker
       // failed, retry
       Serial.print(".");
-      delay(5000);
+      delay(5000);                                             
     }
   }
   Serial.println();
