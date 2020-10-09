@@ -171,7 +171,7 @@ void onMessageReceived(int messageSize) {
 
   // use the Stream interface to print the contents
   while (mqttClient.available()) {
-    Serial.print((char)mqttClient.read());
+    Serial.print((char)mqttClient.read());         //Prints the received serial message received string on the serial monitor.
   }
   Serial.println();
 
