@@ -6,7 +6,7 @@
   It publishes a message to "/devices/{deviceId}/state" topic
   and subscribes to messages on the "/devices/{deviceId}/config" and
   "/devices/{deviceId}/commands/#" topics. According to the message received it performs a specified action.
-
+   It uses an additional repository to make ECCX08 compatible with ESP32.
 */
 
 #include <Arduino.h>
